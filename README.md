@@ -1,68 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`c3`](https://developers.cloudflare.com/pages/get-started/c3).
+これは [`c3`](https://developers.cloudflare.com/pages/get-started/c3) でブートストラップされた [Next.js](https://nextjs.org/) プロジェクトです。
 
-## Getting Started
+## はじめに
 
-First, run the development server:
+まず、開発用サーバーを起動します：
 
 ```bash
 npm run dev
-# or
+# または
 yarn dev
-# or
+# または
 pnpm dev
-# or
+# または
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[http://localhost:3000](http://localhost:3000)をブラウザで開くと結果が表示されます。
 
-## Cloudflare integration
+## クラウドフレアの統合
 
-Besides the `dev` script mentioned above `c3` has added a few extra scripts that allow you to integrate the application with the [Cloudflare Pages](https://pages.cloudflare.com/) environment, these are:
-  - `pages:build` to build the application for Pages using the [`@cloudflare/next-on-pages`](https://github.com/cloudflare/next-on-pages) CLI
-  - `preview` to locally preview your Pages application using the [Wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI
-  - `deploy` to deploy your Pages application using the [Wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI
+上記の `dev` スクリプトに加えて、`c3` はアプリケーションを [Cloudflare Pages](https://pages.cloudflare.com/) 環境と統合するためのスクリプトをいくつか追加しました：
+  - `pages:build`は[`@cloudflare/next-on-pages`](https://github.com/cloudflare/next-on-pages) CLIを使ってPages用のアプリケーションをビルドします。
+  - [Wrangler](https://developers.cloudflare.com/workers/wrangler/) CLI を使用して、Pages アプリケーションをローカルでプレビューします。
+  - [Wrangler](https://developers.cloudflare.com/workers/wrangler/)CLIを使用してPagesアプリケーションをデプロイします。
 
-> __Note:__ while the `dev` script is optimal for local development you should preview your Pages application as well (periodically or before deployments) in order to make sure that it can properly work in the Pages environment (for more details see the [`@cloudflare/next-on-pages` recommended workflow](https://github.com/cloudflare/next-on-pages/blob/05b6256/internal-packages/next-dev/README.md#recommended-workflow))
+> 注意:__ `dev` スクリプトはローカルでの開発に最適ですが、Pages アプリケーションが Pages 環境で正しく動作することを確認するために、(定期的またはデプロイ前に) プレビューする必要があります (詳細については、[`@cloudflare/next-on-pages` 推奨ワークフロー](https://github.com/cloudflare/next-on-pages/blob/05b6256/internal-packages/next-dev/README.md#recommended-workflow) を参照してください)。
 
-### Bindings
+### バインディング
 
-Cloudflare [Bindings](https://developers.cloudflare.com/pages/functions/bindings/) are what allows you to interact with resources available in the Cloudflare Platform.
+Cloudflareの[バインディング](https://developers.cloudflare.com/pages/functions/bindings/)はCloudflare Platformで利用可能なリソースとのやり取りを可能にするものです。
 
-You can use bindings during development, when previewing locally your application and of course in the deployed application:
+バインディングは開発中、アプリケーションをローカルでプレビューするとき、そしてもちろんデプロイされたアプリケーションで使用できます：
 
-- To use bindings in dev mode you need to define them in the `next.config.js` file under `setupDevBindings`, this mode uses the `next-dev` `@cloudflare/next-on-pages` submodule. For more details see its [documentation](https://github.com/cloudflare/next-on-pages/blob/05b6256/internal-packages/next-dev/README.md).
+- 開発モードでバインディングを使用するには、`next.config.js` ファイルの `setupDevBindings` で定義する必要があります。このモードでは `next-dev` `@cloudflare/next-on-pages` サブモジュールを使用します。詳細は [documentation](https://github.com/cloudflare/next-on-pages/blob/05b6256/internal-packages/next-dev/README.md) を参照してください。
 
-- To use bindings in the preview mode you need to add them to the `pages:preview` script accordingly to the `wrangler pages dev` command. For more details see its [documentation](https://developers.cloudflare.com/workers/wrangler/commands/#dev-1) or the [Pages Bindings documentation](https://developers.cloudflare.com/pages/functions/bindings/).
+- プレビューモードでバインディングを使用するには、`wrangler pages dev` コマンドに従って `pages:preview` スクリプトにバインディングを追加する必要があります。詳しくは [documentation](https://developers.cloudflare.com/workers/wrangler/commands/#dev-1) または [Pages Bindings documentation](https://developers.cloudflare.com/pages/functions/bindings/) を参照してください。
 
-- To use bindings in the deployed application you will need to configure them in the Cloudflare [dashboard](https://dash.cloudflare.com/). For more details see the  [Pages Bindings documentation](https://developers.cloudflare.com/pages/functions/bindings/).
+- デプロイされたアプリケーションでバインディングを使用するには、Cloudflare [dashboard](https://dash.cloudflare.com/) でバインディングを設定する必要があります。詳細は[Pages Bindings documentation](https://developers.cloudflare.com/pages/functions/bindings/)を参照してください。
 
-#### KV Example
+#### KV の例
 
-`c3` has added for you an example showing how you can use a KV binding.
+c3`はKVバインディングの使用方法を示す例を追加しました。
 
-In order to enable the example:
-- Search for javascript/typescript lines containing the following comment:
+例を有効にするには
+- 以下のコメントを含むjavascript/typescript行を検索してください：
+  以下のコメントを含む javascript/typescript 行を検索してください。
   ```ts
   // KV Example:
   ```
-  and uncomment the commented lines below it.
-- Do the same in the `wrangler.toml` file, where
-  the comment is:
+  を含むjavascript/typescript行を検索し、その下にあるコメント行のコメントを外します。
+- 同じことを `wrangler.toml` ファイルでも行ってください。
+  にも同じことをしてください：
   ```
-  # KV Example:
+  # KV Example:
   ```
-- If you're using TypeScript run the `cf-typegen` script to update the `env.d.ts` file:
+- TypeScript を使用している場合は、`cf-typegen` スクリプトを実行して `env.d.ts` ファイルを更新する：
   ```bash
   npm run cf-typegen
-  # or
+  # または
   yarn cf-typegen
-  # or
+  # または
   pnpm cf-typegen
-  # or
+  # または
   bun cf-typegen
   ```
 
-After doing this you can run the `dev` or `preview` script and visit the `/api/hello` route to see the example in action.
+これで `dev` スクリプトまたは `preview` スクリプトを実行して、`/api/hello` ルートにアクセスすることで、サンプルが実際に動作するのを見ることができる。
 
-Finally, if you also want to see the example work in the deployed application make sure to add a `MY_KV_NAMESPACE` binding to your Pages application in its [dashboard kv bindings settings section](https://dash.cloudflare.com/?to=/:account/pages/view/:pages-project/settings/functions#kv_namespace_bindings_section). After having configured it make sure to re-deploy your application.
+最後に、デプロイしたアプリケーションでサンプルの動作を確認したい場合は、Pages アプリケーションの [dashboard kvinding settings section](https://dash.cloudflare.com/?to=/:account/pages/view/:pages-project/settings/functions#kv_namespace_bindings_section) に `MY_KV_NAMESPACE` バインディングを追加してください。設定後、アプリケーションを再デプロイしてください。
