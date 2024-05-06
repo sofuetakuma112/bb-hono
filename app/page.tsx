@@ -1,20 +1,12 @@
-"use client";
+import { redirect } from "next/navigation";
+import { getServerAuthSession } from "@/features/next-auth";
 
-import { useEffect, useState } from "react";
-import { hc } from "hono/client";
-import type { AppType } from "@/app/api/[...route]/route";
+export default async function Home() {
+  const session = await getServerAuthSession();
 
-const client = hc<AppType>("/");
+  if (!session.user.name || !session.user.image) {
+    redirect(`/set-up-profile`);
+  }
 
-export default function Home() {
-  const [name, setName] = useState<string>();
-
-  useEffect(() => {
-    client.api.hello
-      .$get()
-      .then((res) => res.json())
-      .then((json) => setName(json.name));
-  }, []);
-
-  return <p>{typeof name !== "undefined" ? `Hello ${name}!` : "Loading..."}</p>;
+  redirect(`/home`);
 }
